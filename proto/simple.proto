@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package simple;
+
+// request
+message SimpleRequest{
+    string name = 1;
+    string msg = 2;
+}
+
+// response
+message SimpleResponse{
+    string reply_msg = 1;
+}
+
+// dict request
+message DictRequest{
+    string key = 1;
+}
+
+// dict response
+message DictResponse{
+    map<string, string> reply_kv = 1;
+}
+
+// list request
+message ListRequest {
+    string key = 1;
+}
+
+// list respose
+message ListResponse{
+    repeated string reply_list = 1;
+}
+
+// interface
+service SimpleService{
+    rpc SimpleSend (SimpleRequest) returns (SimpleResponse) {}
+    rpc ListSend (ListRequest) returns (ListResponse) {}
+    rpc DictSend (DictRequest) returns (DictResponse) {}
+}
