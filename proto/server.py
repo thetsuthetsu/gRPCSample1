@@ -30,13 +30,12 @@ class SimpleServiceServicer(simple_pb2_grpc.SimpleServiceServicer):
         )
 
 
-
 # start server
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 simple_pb2_grpc.add_SimpleServiceServicer_to_server(SimpleServiceServicer(), server)
 # server.add_insecure_port('[::]:5051')
-pkey=open("../certs/privkey.pem", "rb").read()
-chain=open("../certs/cert.pem", "rb").read()
+pkey = open("../certs/privkey.pem", "rb").read()
+chain = open("../certs/cert.pem", "rb").read()
 cred = grpc.ssl_server_credentials([(pkey, chain)])
 server.add_secure_port('localhost:51011', cred)
 server.start()
